@@ -11,4 +11,9 @@ class Product extends Model
     use HasFactory;
 
     public $fillable = ['name', 'price', 'stok'];
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

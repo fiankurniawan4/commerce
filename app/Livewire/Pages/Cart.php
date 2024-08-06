@@ -23,6 +23,15 @@ class Cart extends Component
         $this->total_barang = array_sum(array_column($this->cart, 'quantity'));
     }
 
+    public function removeFromCart($id)
+    {
+        $this->cart = Cache::get('cart');
+        $this->cart = array_filter($this->cart, function ($item) use ($id) {
+            return $item['id'] != $id;
+        });
+        Cache::put('cart', $this->cart);
+        $this->dispatch('cartUpdated');
+    }
 
     public function render()
     {

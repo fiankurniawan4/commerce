@@ -1,4 +1,4 @@
-<div x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 5)">
+<div x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 10)">
     <nav id="header" :class="scrolled ? 'bg-white/70 backdrop-blur' : 'bg-transparent'"
         class="w-full z-30 top-0 py-1 fixed transition duration-300 ease-in-out">
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3"
@@ -51,12 +51,7 @@
                     </svg>
                 </a>
 
-                <div class="relative pl-3 inline-block">
-                    <a class="no-underline hover:text-black" href="#">
-                        @livewire('pages.cart')
-                    </a>
-                </div>
-
+                @livewire('pages.cart')
             </div>
         </div>
     </nav>
