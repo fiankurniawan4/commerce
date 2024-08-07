@@ -14,6 +14,12 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css');
+    </style>
+    @if (isset($header))
+        {{ $header }}
+    @endif
     @livewireStyles()
 </head>
 

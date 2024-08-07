@@ -35,6 +35,6 @@ class Cart extends Component
 
     public function render()
     {
-        return view('livewire.pages.cart', ['cart' => $this->cart, 'total_barang' => $this->total_barang]);
+        return view('livewire.pages.cart', [ 'total_barang' => $this->total_barang]);
     }
 }
