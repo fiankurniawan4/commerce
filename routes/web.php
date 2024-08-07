@@ -14,5 +14,6 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::get('checkout', [CheckoutController::class, 'index'])->middleware('auth')->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->middleware('auth')->name('checkout.post');
 
 require __DIR__.'/auth.php';

@@ -25,9 +25,9 @@
                             <button wire:click="removeFromCart({{ $item['id'] }})"
                                 class="block px-4 py-2 text-sm text-gray-700">x</button>
                         </div>
-                        <button
-                            class="block px-4 py-2 text-sm text-gray-700">Checkout</button>
                         @endforeach
+                        <a href="{{ route('checkout.index') }}"
+                            class="block px-4 py-2 text-sm text-gray-700">Checkout</a>
                         @empty($cart)
                             <a class="block px-4 py-2 text-sm text-gray-700">Cart is empty</a>
                         @endempty

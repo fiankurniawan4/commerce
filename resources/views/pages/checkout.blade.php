@@ -103,7 +103,8 @@
                                             <p class="text-gray-400">x {{ $cart['quantity'] }}</p>
                                         </div>
                                         <div>
-                                            <span class="font-semibold text-gray-400 text-sm">Rp.</span> <span class="font-semibold">{{ $harga_barang[$cart['id']] }}</span>
+                                            <span class="font-semibold text-gray-400 text-sm">Rp.</span> <span
+                                                class="font-semibold">{{ $harga_barang[$cart['id']] }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -149,40 +150,42 @@
                         @if (!empty($carts))
                             <div class="px-3 md:w-5/12">
                                 {{-- TODO: IDK --}}
-                                {{-- <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
-                                <div class="w-full flex mb-3 items-center">
-                                    <div class="w-32">
-                                        <span class="text-gray-600 font-semibold">Contact</span>
+                                {{-- <div
+                                    class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
+                                    <div class="w-full flex mb-3 items-center">
+                                        <div class="w-32">
+                                            <span class="text-gray-600 font-semibold">Contact</span>
+                                        </div>
+                                        <div class="flex-grow pl-3">
+                                            <span>Scott Windon</span>
+                                        </div>
                                     </div>
-                                    <div class="flex-grow pl-3">
-                                        <span>Scott Windon</span>
+                                    <div class="w-full flex items-center">
+                                        <div class="w-32">
+                                            <span class="text-gray-600 font-semibold">Billing Address</span>
+                                        </div>
+                                        <div class="flex-grow pl-3">
+                                            <span>123 George Street, Sydney, NSW 2000 Australia</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="w-full flex items-center">
-                                    <div class="w-32">
-                                        <span class="text-gray-600 font-semibold">Billing Address</span>
-                                    </div>
-                                    <div class="flex-grow pl-3">
-                                        <span>123 George Street, Sydney, NSW 2000 Australia</span>
-                                    </div>
-                                </div>
-                            </div> --}}
-                                <div
-                                    class="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
-                                    <div class="w-full p-3 border-b border-gray-200">
-                                        {{-- TODO: Payment Gateway MIDTRANS --}}
-                                        {{-- <div class="mb-5">
+                                </div> --}}
+                                <form method="POST" action="{{ route('checkout.post') }}">
+                                    <div
+                                        class="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
+                                        <div class="w-full p-3 border-b border-gray-200">
+                                            {{-- TODO: Payment Gateway MIDTRANS --}}
+                                            {{-- <div class="mb-5">
                                         <label for="type1" class="flex items-center cursor-pointer">
                                             <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type1" checked>
                                             <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" class="h-6 ml-3">
                                         </label>
                                     </div> --}}
-                                        <div>
+                                            @csrf
                                             <div class="mb-3">
                                                 <label
                                                     class="text-gray-600 font-semibold text-sm mb-2 ml-1">Name</label>
                                                 <div>
-                                                    <input
+                                                    <input name="name"
                                                         class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                                                         placeholder="John Smith" type="text" />
                                                 </div>
@@ -191,19 +194,19 @@
                                                 <label
                                                     class="text-gray-600 font-semibold text-sm mb-2 ml-1">Address</label>
                                                 <div>
-                                                    <input
+                                                    <input name="address"
                                                         class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                                                         placeholder="NYC Street NO.1" type="text" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <button
-                                        class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"><i
-                                            class="mdi mdi-lock-outline mr-1"></i> PAY NOW</button>
-                                </div>
+                                    <div>
+                                        <button type="submit"
+                                            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"><i
+                                                class="mdi mdi-lock-outline mr-1"></i> PAY NOW</button>
+                                    </div>
+                                </form>
                             </div>
                         @endif
                     </div>
