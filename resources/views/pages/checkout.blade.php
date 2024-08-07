@@ -91,7 +91,7 @@
                 <div class="w-full">
                     <div class="-mx-3 md:flex items-start">
                         <div class="px-3 md:w-7/12 lg:pr-10">
-                            @foreach ($carts as $cart)
+                            @foreach ($carts as $key => $cart)
                                 <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
                                     <div class="w-full flex items-center">
                                         <div
@@ -100,14 +100,24 @@
                                         </div>
                                         <div class="flex-grow pl-3">
                                             <h6 class="font-semibold uppercase text-gray-600">{{ $cart['name'] }}.</h6>
-                                            <p class="text-gray-400">x {{$cart['quantity']}}</p>
+                                            <p class="text-gray-400">x {{ $cart['quantity'] }}</p>
                                         </div>
                                         <div>
-                                            <span class="font-semibold text-gray-600 text-xl">Rp. {{ $cart['price'] }}</span>
+                                            <span class="font-semibold text-gray-400 text-sm">Rp.</span> <span class="font-semibold">{{ $harga_barang[$cart['id']] }}</span>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
+                            @empty($carts)
+                                <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
+                                    <div class="w-full flex items-center">
+
+                                        <div>
+                                            <span class="font-semibold text-gray-600 text-xl">Cart Is Empty.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endempty
                             {{-- TODO: Discount Code --}}
                             {{-- <div class="mb-6 pb-6 border-b border-gray-200">
                                 <div class="-mx-2 flex items-end justify-end">
@@ -122,39 +132,24 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div class="mb-6 pb-6 border-b border-gray-200 text-gray-800">
-                                <div class="w-full flex mb-3 items-center">
-                                    <div class="flex-grow">
-                                        <span class="text-gray-600">Subtotal</span>
-                                    </div>
-                                    <div class="pl-3">
-                                        <span class="font-semibold">$190.91</span>
-                                    </div>
-                                </div>
-                                <div class="w-full flex items-center">
-                                    <div class="flex-grow">
-                                        <span class="text-gray-600">Taxes (GST)</span>
-                                    </div>
-                                    <div class="pl-3">
-                                        <span class="font-semibold">$19.09</span>
+                            @if (!empty($carts))
+                                <div class="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
+                                    <div class="w-full flex items-center">
+                                        <div class="flex-grow">
+                                            <span class="text-gray-600">Total</span>
+                                        </div>
+                                        <div class="pl-3">
+                                            <span class="font-semibold text-gray-400 text-sm">Rp.</span> <span
+                                                class="font-semibold">{{ $total_harga }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
-                                <div class="w-full flex items-center">
-                                    <div class="flex-grow">
-                                        <span class="text-gray-600">Total</span>
-                                    </div>
-                                    <div class="pl-3">
-                                        <span class="font-semibold text-gray-400 text-sm">AUD</span> <span
-                                            class="font-semibold">$210.00</span>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
                         </div>
-                        <div class="px-3 md:w-5/12">
-                            {{-- TODO: IDK --}}
-                            {{-- <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
+                        @if (!empty($carts))
+                            <div class="px-3 md:w-5/12">
+                                {{-- TODO: IDK --}}
+                                {{-- <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
                                 <div class="w-full flex mb-3 items-center">
                                     <div class="w-32">
                                         <span class="text-gray-600 font-semibold">Contact</span>
@@ -172,42 +167,45 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div
-                                class="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
-                                <div class="w-full p-3 border-b border-gray-200">
-                                    {{-- TODO: Payment Gateway MIDTRANS --}}
-                                    {{-- <div class="mb-5">
+                                <div
+                                    class="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
+                                    <div class="w-full p-3 border-b border-gray-200">
+                                        {{-- TODO: Payment Gateway MIDTRANS --}}
+                                        {{-- <div class="mb-5">
                                         <label for="type1" class="flex items-center cursor-pointer">
                                             <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type1" checked>
                                             <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" class="h-6 ml-3">
                                         </label>
                                     </div> --}}
-                                    <div>
-                                        <div class="mb-3">
-                                            <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Name</label>
-                                            <div>
-                                                <input
-                                                    class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-                                                    placeholder="John Smith" type="text" />
+                                        <div>
+                                            <div class="mb-3">
+                                                <label
+                                                    class="text-gray-600 font-semibold text-sm mb-2 ml-1">Name</label>
+                                                <div>
+                                                    <input
+                                                        class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+                                                        placeholder="John Smith" type="text" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Address</label>
-                                            <div>
-                                                <input
-                                                    class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-                                                    placeholder="NYC Street NO.1" type="text" />
+                                            <div class="mb-3">
+                                                <label
+                                                    class="text-gray-600 font-semibold text-sm mb-2 ml-1">Address</label>
+                                                <div>
+                                                    <input
+                                                        class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+                                                        placeholder="NYC Street NO.1" type="text" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div>
+                                    <button
+                                        class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"><i
+                                            class="mdi mdi-lock-outline mr-1"></i> PAY NOW</button>
+                                </div>
                             </div>
-                            <div>
-                                <button
-                                    class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"><i
-                                        class="mdi mdi-lock-outline mr-1"></i> PAY NOW</button>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

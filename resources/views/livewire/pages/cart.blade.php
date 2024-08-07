@@ -1,4 +1,5 @@
 <div class="relative pl-3 inline-block">
+    @if($this->shouldShowCart())
     <a class="no-underline hover:text-black hover:cursor-pointer">
         <div x-data="{ cart: false }" @click.away="cart = false">
             <div @click="cart = !cart">
@@ -36,4 +37,5 @@
             </div>
         </div>
     </a>
+    @endif
 </div>

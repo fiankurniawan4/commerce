@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -31,6 +32,11 @@ class Cart extends Component
         });
         Cache::put('cart', $this->cart);
         $this->dispatch('cartUpdated');
+    }
+
+    public function shouldShowCart()
+    {
+        return !Route::is('checkout.*');
     }
 
     public function render()
