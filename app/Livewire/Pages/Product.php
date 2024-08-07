@@ -14,12 +14,13 @@ class Product extends Component
         $product = ModelsProduct::find($id);
 
         $cart = Cache::get('cart', []);
+        $id_cart = mt_rand(1, 99999999);
 
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity']++;
+        if (isset($cart[$id_cart])) {
+            $cart[$id_cart]['quantity']++;
         } else {
 
-        $cart[$id] = [
+        $cart[$id_cart] = [
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
