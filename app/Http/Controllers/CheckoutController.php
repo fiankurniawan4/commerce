@@ -21,6 +21,10 @@ class CheckoutController extends Controller
     }
 
     public function checkout(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required'
+        ]);
         $cart = Cache::get('cart');
 
         $total_harga = array_sum(array_column($cart, 'price'));

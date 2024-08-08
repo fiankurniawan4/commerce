@@ -12,9 +12,15 @@ class Cart extends Component
     public $cart = [];
     public $total_barang = 0;
 
-    public function mount() {
+    public function mount()
+    {
         $this->cart = Cache::get('cart') ?? [];
-        $this->total_barang = array_sum(array_column($this->cart, 'quantity')) ?? 0;
+        $uniqueProductIds = [];
+
+        foreach ($this->cart as $item) {
+            $uniqueProductIds[$item['id']] = true;
+        }
+        $this->total_barang = count($uniqueProductIds);
     }
 
     #[On('cartUpdated')]
@@ -41,6 +47,6 @@ class Cart extends Component
 
     public function render()
     {
-        return view('livewire.pages.cart', [ 'total_barang' => $this->total_barang]);
+        return view('livewire.pages.cart', ['total_barang' => $this->total_barang]);
     }
 }

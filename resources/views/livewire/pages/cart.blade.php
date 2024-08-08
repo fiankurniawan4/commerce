@@ -26,8 +26,10 @@
                                 class="block px-4 py-2 text-sm text-gray-700">x</button>
                         </div>
                         @endforeach
+                        @empty(!$cart)
                         <a href="{{ route('checkout.index') }}"
                             class="block px-4 py-2 text-sm text-gray-700">Checkout</a>
+                        @endempty
                         @empty($cart)
                             <a class="block px-4 py-2 text-sm text-gray-700">Cart is empty</a>
                         @endempty

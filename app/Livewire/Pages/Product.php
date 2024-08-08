@@ -12,25 +12,26 @@ class Product extends Component
     public function addToCart($id)
     {
         $product = ModelsProduct::find($id);
-
         $cart = Cache::get('cart', []);
-        $id_cart = mt_rand(1, 99999999);
-
-        if (isset($cart[$id_cart])) {
-            $cart[$id_cart]['quantity']++;
-        } else {
-
-        $cart[$id_cart] = [
-            'id' => $product->id,
-            'name' => $product->name,
-            'price' => $product->price,
-            'image' => $product->image,
-            'quantity' => 1,
-        ];
-    }
+        $is_cart = false;
+        foreach ($cart as &$item) {
+            if ($item['id'] == $id) {
+                $item['quantity']++;
+                $is_cart = true;
+                break;
+            }
+        }
+        if (!$is_cart) {
+            $cart[] = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'image' => $product->image,
+                'quantity' => 1,
+            ];
+        }
 
         Cache::put('cart', $cart);
-
         $this->dispatch('cartUpdated');
     }
 
