@@ -20,6 +20,7 @@ class Cart extends Component
         foreach ($this->cart as $item) {
             $uniqueProductIds[$item['id']] = true;
         }
+
         $this->total_barang = count($uniqueProductIds);
     }
 
@@ -27,7 +28,13 @@ class Cart extends Component
     public function cartUpdated()
     {
         $this->cart = Cache::get('cart');
-        $this->total_barang = array_sum(array_column($this->cart, 'quantity'));
+        $uniqueProductIds = [];
+
+        foreach ($this->cart as $item) {
+            $uniqueProductIds[$item['id']] = true;
+        }
+
+        $this->total_barang = count($uniqueProductIds);
     }
 
     public function removeFromCart($id)

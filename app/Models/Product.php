@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
@@ -12,8 +13,8 @@ class Product extends Model
 
     public $fillable = ['name', 'price', 'stok'];
 
-    public function wishlists()
+    public function hasWishlists()
     {
-        return $this->hasMany(Wishlist::class);
+        return $this->hasOne(Wishlist::class)->where('wishlists.user_id', Auth::user()->id);
     }
 }

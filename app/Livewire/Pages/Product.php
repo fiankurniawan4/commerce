@@ -3,6 +3,8 @@
 namespace App\Livewire\Pages;
 
 use App\Models\Product as ModelsProduct;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
@@ -30,9 +32,23 @@ class Product extends Component
                 'quantity' => 1,
             ];
         }
-
         Cache::put('cart', $cart);
         $this->dispatch('cartUpdated');
+    }
+
+    public function addWishlist($id) {
+        $data = [
+            'product_id' => $id,
+            'user_id' => Auth::user()->id
+        ];
+
+        $wishlist = Wishlist::where($data);
+        if ($wishlist->count() > 0) {
+            $wishlist->delete();
+        } else {
+            Wishlist::create($data);
+        }
+        return;
     }
 
     public function render()
