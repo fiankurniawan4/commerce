@@ -11,10 +11,11 @@ class Product extends Model
 {
     use HasFactory;
 
-    public $fillable = ['name', 'price', 'stok'];
+    public $guarded = [];
 
     public function hasWishlists()
     {
         return $this->hasOne(Wishlist::class)->where('wishlists.user_id', Auth::user()->id);
     }
+
 }

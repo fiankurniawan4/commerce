@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,11 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+Route::middleware('auth')->group(function () {
+    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
+});
+
 Route::get('checkout', [CheckoutController::class, 'index'])->middleware('auth')->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->middleware('auth')->name('checkout.post');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

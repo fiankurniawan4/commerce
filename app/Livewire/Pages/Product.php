@@ -36,10 +36,11 @@ class Product extends Component
         $this->dispatch('cartUpdated');
     }
 
-    public function addWishlist($id) {
+    public function addWishlist($id)
+    {
         $data = [
             'product_id' => $id,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
         ];
 
         $wishlist = Wishlist::where($data);
@@ -53,7 +54,18 @@ class Product extends Component
 
     public function render()
     {
-        $product = ModelsProduct::all();
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)->pluck('product_id')->toArray();
+
+        $caseString = 'CASE';
+        foreach ($wishlist as $index => $id) {
+            $caseString .= " WHEN id = $id THEN $index";
+        }
+        $caseString .= ' ELSE ' . count($wishlist) . ' END';
+
+        $product = ModelsProduct::orderByRaw($caseString)
+            ->orderBy('id')
+            ->get();
+
         return view('livewire.pages.product', ['products' => $product]);
     }
 }

@@ -20,7 +20,7 @@
                                 href="{{ Route::is('home') ? '#store' : route('home') }}">Home</a></li>
                         @if (auth()->user()->role == 'admin')
                             <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                                    href="#">Dashboard</a></li>
+                                    href="{{ route('admin.index') }}">Dashboard</a></li>
                         @endif
                     </ul>
                 </nav>
